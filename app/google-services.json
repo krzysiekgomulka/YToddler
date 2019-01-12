@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "592338721772",
+    "firebase_url": "https://ytoddler-7a93c.firebaseio.com",
+    "project_id": "ytoddler-7a93c",
+    "storage_bucket": "ytoddler-7a93c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:592338721772:android:1ab6cf037cd884bd",
+        "android_client_info": {
+          "package_name": "com.abc.ytoddler"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "592338721772-sra3n73qco1p1nk0ukcu9ijsabst7erv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.abc.ytoddler",
+            "certificate_hash": "d0f502a571e08eb770eeab990f477a2bc5435eaf"
+          }
+        },
+        {
+          "client_id": "592338721772-svt5gbpv8rrp8enoh121vs6giafflp0t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCg1DeMTaHJ5WB6Bgoz76ugqPglnjhjHPI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "592338721772-svt5gbpv8rrp8enoh121vs6giafflp0t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
