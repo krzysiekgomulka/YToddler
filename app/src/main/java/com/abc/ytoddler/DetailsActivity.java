@@ -16,6 +16,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.youtube.player.YouTubeBaseActivity;
@@ -59,7 +60,7 @@ public class DetailsActivity extends YouTubeBaseActivity implements YouTubePlaye
     TextView textViewName;
     TextView textViewDes;
     TextView textViewDate;
-    // ImageView imageViewIcon;
+    ImageView imageViewIcon;
     public static final String VIDEO_ID = "c2UNv38V6y4";
     private YouTubePlayerView mYoutubePlayerView = null;
     private YouTubePlayer mYoutubePlayer = null;
@@ -87,19 +88,19 @@ public class DetailsActivity extends YouTubeBaseActivity implements YouTubePlaye
         textViewDes.setText(youtubeDataModel.getDescription());
         textViewDate.setText(youtubeDataModel.getPublishedAt());
 
-//        mList_videos = (RecyclerView) findViewById(R.id.mList_videos);
-//        new RequestYoutubeCommentAPI().execute();
-//        try {
-//            if (youtubeDataModel.getThumbnail() != null) {
-//                if (youtubeDataModel.getThumbnail().startsWith("http")) {
-//                    Picasso.with(this)
-//                            .load(youtubeDataModel.getThumbnail())
-//                            .into(imageViewIcon);
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        mList_videos = (RecyclerView) findViewById(R.id.mList_videos);
+        new RequestYoutubeCommentAPI().execute();
+        try {
+            if (youtubeDataModel.getThumbnail() != null) {
+                if (youtubeDataModel.getThumbnail().startsWith("http")) {
+                    Picasso.with(this)
+                            .load(youtubeDataModel.getThumbnail())
+                            .into(imageViewIcon);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         if (!checkPermissionForReadExtertalStorage()) {
             try {

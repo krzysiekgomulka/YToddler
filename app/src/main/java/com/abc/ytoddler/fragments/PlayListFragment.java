@@ -38,8 +38,8 @@
  */
 public class PlayListFragment extends Fragment {
 
-    private static String GOOGLE_YOUTUBE_API_KEY = "AIzaSyCmgVhP7n1aWP87nBiu3f3VxNqoTyUEfFY";//here you should use your api key for testing purpose you can use this api also
-    private static String PLAYLIST_ID = "UU7V6hW6xqPAiUfataAZZtWA";//here you should use your playlist id for testing purpose you can use this api also
+    private static String GOOGLE_YOUTUBE_API_KEY = "AIzaSyCmgVhP7n1aWP87nBiu3f3VxNqoTyUEfFY";
+    private static String PLAYLIST_ID = "PLDt4VQajKv8yhWmKGl4NHHlFSyA-5ad_r";
     private static String CHANNLE_GET_URL = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=" + PLAYLIST_ID + "&maxResults=20&key=" + GOOGLE_YOUTUBE_API_KEY + "";
 
     private RecyclerView mList_videos = null;
@@ -54,7 +54,7 @@ public class PlayListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_play_list, container, false);
         mList_videos = (RecyclerView) view.findViewById(R.id.mList_videos);
         initList(mListData);

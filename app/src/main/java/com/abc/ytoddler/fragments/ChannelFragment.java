@@ -32,8 +32,8 @@ import com.abc.ytoddler.DetailsActivity;
 
 
 public class ChannelFragment extends Fragment {
-    private static String GOOGLE_YOUTUBE_API_KEY = "AIzaSyCmgVhP7n1aWP87nBiu3f3VxNqoTyUEfFY";//here you should use your api key for testing purpose you can use this api also
-    private static String CHANNEL_ID = "UCoMdktPbSTixAyNGwb-UYkQ"; //here you should use your channel id for testing purpose you can use this api also
+    private static String GOOGLE_YOUTUBE_API_KEY = "AIzaSyCmgVhP7n1aWP87nBiu3f3VxNqoTyUEfFY";
+    private static String CHANNEL_ID = "UC7Pq3Ko42YpkCB_Q4E981jw";
     private static String CHANNLE_GET_URL = "https://www.googleapis.com/youtube/v3/search?part=snippet&order=date&channelId=" + CHANNEL_ID + "&maxResults=20&key=" + GOOGLE_YOUTUBE_API_KEY + "";
 
 
@@ -73,7 +73,6 @@ public class ChannelFragment extends Fragment {
     }
 
 
-    //create an asynctask to get all the data from youtube
     private class RequestYoutubeAPI extends AsyncTask<Void, String, String> {
         @Override
         protected void onPreExecute() {

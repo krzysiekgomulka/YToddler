@@ -57,7 +57,7 @@
         <TextView
             android:layout_width="150dp"
             android:layout_height="30dp"
-            android:text="Download This Video"
+            android:text="@string/Download_This_Video"
             android:gravity="center"
             android:onClick="downloadVideo"
             android:textColor="@color/common_blue_bg"
@@ -78,52 +78,52 @@
         android:src="@drawable/share"
         android:visibility="visible" />
 
+<TextView
+    android:layout_below="@+id/title_layout"
+    android:id="@+id/textViewDes"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="left"
+    android:layout_margin="10dp"
+    android:maxLines="4"
+    android:text="Android Name sjdnjas ajskdjaksjdka kaskdjaksdj kjskdjaksjAndroid Name sjdnjas ajskdjaksjdka kaskdjaksdj kjskdjaksjAndroid Name sjdnjas ajskdjaksjdka kaskdjaksdj kjskdjaksjAndroid Name sjdnjas ajskdjaksjdka kaskdjaksdj kjskdjaksjAndroid Name sjdnjas ajskdjaksjdka kaskdjaksdj kjskdjaksj"
+    android:textAppearance="?android:attr/textAppearanceLarge"
+    android:textColor="@color/common_gray_txt"
+    android:textSize="16dp" />
+
+<LinearLayout
+    android:layout_below="@+id/textViewDes"
+    android:layout_width="match_parent"
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginBottom="10dp"
+
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
     <TextView
-        android:layout_below="@+id/title_layout"
-        android:id="@+id/textViewDes"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:layout_margin="10dp"
-        android:maxLines="4"
-        android:text="Android Name sjdnjas ajskdjaksjdka kaskdjaksdj kjskdjaksjAndroid Name sjdnjas ajskdjaksjdka kaskdjaksdj kjskdjaksjAndroid Name sjdnjas ajskdjaksjdka kaskdjaksdj kjskdjaksjAndroid Name sjdnjas ajskdjaksjdka kaskdjaksdj kjskdjaksjAndroid Name sjdnjas ajskdjaksjdka kaskdjaksdj kjskdjaksj"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/common_gray_txt"
-        android:textSize="16dp" />
+        android:text="FAVOURITE"
+        android:textColor="@color/colorAccent"/>
 
-    <LinearLayout
-        android:layout_below="@+id/textViewDes"
-        android:layout_width="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="COMMENTS"
+        android:layout_marginStart="0dp"
         android:layout_marginBottom="10dp"
+        android:textColor="@color/common_blue_bg"/>
 
-        android:orientation="vertical"
-        android:layout_height="wrap_content">
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/mList_videos"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+</LinearLayout>
 
-        <TextView
-            android:visibility="gone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="FAVOURITE"
-            android:textColor="@color/colorAccent"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="COMMENTS"
-            android:layout_marginLeft="0dp"
-            android:layout_marginBottom="10dp"
-            android:textColor="@color/common_blue_bg"/>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/mList_videos"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
-    </LinearLayout>
-
-    <!--<ImageView-->
+<!--<ImageView-->
     <!--android:layout_width="40dp"-->
     <!--android:layout_height="40dp"-->
     <!--android:layout_alignParentRight="true"-->
