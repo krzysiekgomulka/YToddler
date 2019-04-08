@@ -26,8 +26,8 @@ public class ProfileActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        tabLayout = findViewById(R.id.tab_layout);
+        viewPager =  findViewById(R.id.viewPager);
 
         tabLayout.addTab(tabLayout.newTab().setText("Channel"));
         tabLayout.addTab(tabLayout.newTab().setText("Playlist"));
