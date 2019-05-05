@@ -93,7 +93,7 @@ public class DetailsActivity extends YouTubeBaseActivity implements YouTubePlaye
         try {
             if (youtubeDataModel.getThumbnail() != null) {
                 if (youtubeDataModel.getThumbnail().startsWith("http")) {
-                    Picasso.with(this)
+                    Picasso.get()
                             .load(youtubeDataModel.getThumbnail())
                             .into(imageViewIcon);
                 }

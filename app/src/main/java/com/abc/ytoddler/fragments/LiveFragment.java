@@ -1,9 +1,11 @@
 package com.abc.ytoddler.fragments;
 
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+//import android.widget.AdapterView;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -43,7 +45,6 @@ public class LiveFragment extends Fragment {
 
 
     private RecyclerView mList_videos = null;
-    private VideoPostAdapter adapter = null;
     private ArrayList<YoutubeDataModel> mListData = new ArrayList<>();
 
     public LiveFragment() {
@@ -52,11 +53,11 @@ public class LiveFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_live, container, false);
-        mList_videos = (RecyclerView) view.findViewById(R.id.mList_videos);
+        mList_videos = view.findViewById(R.id.mList_videos);
         initList(mListData);
         new RequestYoutubeAPI().execute();
         return view;
@@ -64,14 +65,10 @@ public class LiveFragment extends Fragment {
 
     private void initList(ArrayList<YoutubeDataModel> mListData) {
         mList_videos.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new VideoPostAdapter(getActivity(), mListData, new OnItemClickListener() {
-            @Override
-            public void onItemClick(YoutubeDataModel item) {
-                YoutubeDataModel youtubeDataModel = item;
-                Intent intent = new Intent(getActivity(), DetailsActivity.class);
-                intent.putExtra(YoutubeDataModel.class.toString(), youtubeDataModel);
-                startActivity(intent);
-            }
+        VideoPostAdapter adapter = new VideoPostAdapter(getActivity(), mListData, item -> {
+            Intent intent = new Intent(getActivity(), DetailsActivity.class);
+            intent.putExtra(YoutubeDataModel.class.toString(), item);
+            startActivity(intent);
         });
         mList_videos.setAdapter(adapter);
 
@@ -79,6 +76,7 @@ public class LiveFragment extends Fragment {
 
 
     //create an asynctask to get all the data from youtube
+    @SuppressLint("StaticFieldLeak")
     private class RequestYoutubeAPI extends AsyncTask<Void, String, String> {
         @Override
         protected void onPreExecute() {
@@ -93,8 +91,7 @@ public class LiveFragment extends Fragment {
             try {
                 HttpResponse response = httpClient.execute(httpGet);
                 HttpEntity httpEntity = response.getEntity();
-                String json = EntityUtils.toString(httpEntity);
-                return json;
+                return EntityUtils.toString(httpEntity);
             } catch (IOException e) {
                 e.printStackTrace();
             }

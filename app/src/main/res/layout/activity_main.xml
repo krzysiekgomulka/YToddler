@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,14 +9,16 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:background="@color/white">
 
         <ImageView
             android:layout_width="250dp"
             android:layout_height="200dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/logo" />
+            android:src="@drawable/logo"
+            android:contentDescription="@string/Logo_Description" />
 
     </RelativeLayout>
 
@@ -45,7 +46,9 @@
                 android:hint="@string/email"
                 android:inputType="textEmailAddress"
                 android:paddingBottom="15dp"
-                android:textColorHint="@color/white" />
+                android:textColorHint="@color/white"
+                android:autofillHints="@string/password"
+                tools:targetApi="o" />
 
             <EditText
                 android:id="@+id/editTextPassword"
@@ -55,7 +58,9 @@
                 android:hint="@string/password"
                 android:inputType="textPassword"
                 android:paddingBottom="15dp"
-                android:textColorHint="@color/white" />
+                android:textColorHint="@color/white"
+                android:autofillHints="@string/password"
+                tools:targetApi="o" />
 
             <Button
                 android:id="@+id/buttonLogin"
@@ -77,8 +82,21 @@
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                 android:textColor="@color/white" />
 
+            <Button
+                android:id="@+id/login"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="60dp"
+                android:layout_marginLeft="26dp"
+                android:layout_marginRight="26dp"
+                android:text="@string/login_with_google"
+                android:background="@drawable/round_bg"
+                android:drawableStart="@drawable/ic_google_logo"
+                />
 
         </LinearLayout>
+
 
         <ProgressBar
             android:id="@+id/progressbar"

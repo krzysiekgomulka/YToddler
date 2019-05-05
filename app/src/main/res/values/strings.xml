@@ -19,4 +19,8 @@
     <string name="Zeroes">00:00</string>
     <string name="start">start</string>
     <string name="reset">reset</string>
+    <string name="Logo_Description">Logo Description</string>
+
+    <string name="login_with_google">LOGIN WITH GOOGLE</string>
+    <string name="login_with_facebook">LOGIN WITH FACEBOOK</string>
 </resources>

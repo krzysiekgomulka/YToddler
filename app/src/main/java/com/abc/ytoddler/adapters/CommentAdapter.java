@@ -1,6 +1,7 @@
 package com.abc.ytoddler.adapters;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,23 +22,23 @@ import com.abc.ytoddler.models.YoutubeCommentModel;
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.YoutubeCommentHolder> {
 
     private ArrayList<YoutubeCommentModel> dataSet;
-    private static Context mContext = null;
+    private Context mContext = null;
 
     public CommentAdapter(Context mContext, ArrayList<YoutubeCommentModel> data) {
         this.dataSet = data;
         this.mContext = mContext;
     }
 
+    @NonNull
     @Override
-    public CommentAdapter.YoutubeCommentHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CommentAdapter.YoutubeCommentHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.youtube_comment_layout, parent, false);
-        YoutubeCommentHolder postHolder = new YoutubeCommentHolder(view);
-        return postHolder;
+        return new YoutubeCommentHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(YoutubeCommentHolder holder, int position) {
+    public void onBindViewHolder(@NonNull YoutubeCommentHolder holder, int position) {
         TextView textViewName = holder.textViewName;
         TextView feedback = holder.feedback;
         ImageView imageView = holder.imageViewIcon;
@@ -47,7 +48,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.YoutubeC
         try {
             if (object.getThumbnail() != null) {
                 if (object.getThumbnail().startsWith("http")) {
-                    Picasso.with(mContext)
+                    Picasso.get()
                             .load(object.getThumbnail())
                             .into(imageView);
                 }
@@ -62,17 +63,17 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.YoutubeC
         return dataSet.size();
     }
 
-    public static class YoutubeCommentHolder extends RecyclerView.ViewHolder {
+    static class YoutubeCommentHolder extends RecyclerView.ViewHolder {
 
         TextView textViewName;
         TextView feedback;
         ImageView imageViewIcon;
 
-        public YoutubeCommentHolder(View itemView) {
+        YoutubeCommentHolder(View itemView) {
             super(itemView);
-            this.textViewName = (TextView) itemView.findViewById(R.id.textViewName);
-            this.imageViewIcon = (ImageView) itemView.findViewById(R.id.profile_image);
-            this.feedback = (TextView) itemView.findViewById(R.id.feedback);
+            this.textViewName = itemView.findViewById(R.id.textViewName);
+            this.imageViewIcon = itemView.findViewById(R.id.profile_image);
+            this.feedback = itemView.findViewById(R.id.feedback);
 
         }
 

@@ -5,6 +5,7 @@
         import android.content.Intent;
         import android.os.AsyncTask;
         import android.os.Bundle;
+        import android.support.annotation.NonNull;
         import android.support.v4.app.Fragment;
         import android.support.v7.widget.LinearLayoutManager;
         import android.support.v7.widget.RecyclerView;
@@ -43,7 +44,6 @@ public class PlayListFragment extends Fragment {
     private static String CHANNLE_GET_URL = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=" + PLAYLIST_ID + "&maxResults=20&key=" + GOOGLE_YOUTUBE_API_KEY + "";
 
     private RecyclerView mList_videos = null;
-    private VideoPostAdapter adapter = null;
     private ArrayList<YoutubeDataModel> mListData = new ArrayList<>();
 
     public PlayListFragment() {
@@ -52,11 +52,11 @@ public class PlayListFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_play_list, container, false);
-        mList_videos = (RecyclerView) view.findViewById(R.id.mList_videos);
+        mList_videos = view.findViewById(R.id.mList_videos);
         initList(mListData);
         new RequestYoutubeAPI().execute();
         return view;
@@ -65,14 +65,10 @@ public class PlayListFragment extends Fragment {
 
     private void initList(ArrayList<YoutubeDataModel> mListData) {
         mList_videos.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new VideoPostAdapter(getActivity(), mListData, new OnItemClickListener() {
-            @Override
-            public void onItemClick(YoutubeDataModel item) {
-                YoutubeDataModel youtubeDataModel = item;
-                Intent intent = new Intent(getActivity(), DetailsActivity.class);
-                intent.putExtra(YoutubeDataModel.class.toString(), youtubeDataModel);
-                startActivity(intent);
-            }
+        VideoPostAdapter adapter = new VideoPostAdapter(getActivity(), mListData, item -> {
+            Intent intent = new Intent(getActivity(), DetailsActivity.class);
+            intent.putExtra(YoutubeDataModel.class.toString(), item);
+            startActivity(intent);
         });
         mList_videos.setAdapter(adapter);
 
@@ -94,8 +90,7 @@ public class PlayListFragment extends Fragment {
             try {
                 HttpResponse response = httpClient.execute(httpGet);
                 HttpEntity httpEntity = response.getEntity();
-                String json = EntityUtils.toString(httpEntity);
-                return json;
+                return EntityUtils.toString(httpEntity);
             } catch (IOException e) {
                 e.printStackTrace();
             }
