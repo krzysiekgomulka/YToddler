@@ -12,8 +12,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.WindowManager;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.Objects;
 
@@ -21,11 +23,14 @@ public class ProfileActivity extends AppCompatActivity {
 
     private ViewPager viewPager = null;
     private ActionBarDrawerToggle mToggle;
+    MaterialSearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -34,6 +39,8 @@ public class ProfileActivity extends AppCompatActivity {
         toolbar.setTitle("");
         toolbar.setSubtitle("");
         //toolbar.setLogo(R.drawable.ic_toolbar);
+
+        searchView = findViewById(R.id.search_view);
 
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         viewPager =  findViewById(R.id.viewPager);
@@ -75,7 +82,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
-
+        MenuItem item = menu.findItem(R.id.action_search);
+        searchView.setMenuItem(item);
         return(super.onCreateOptionsMenu(menu));
     }
 
