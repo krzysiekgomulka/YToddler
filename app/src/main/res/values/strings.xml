@@ -26,4 +26,8 @@
 
     <string name="open">Open</string>
     <string name="close">Close</string>
+
+    <string name="PauseTimer">Pause</string>
+    <string name="StartTimer">Start</string>
+
 </resources>

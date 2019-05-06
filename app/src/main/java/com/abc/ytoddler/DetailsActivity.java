@@ -1,6 +1,7 @@
 package com.abc.ytoddler;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -54,6 +55,7 @@ import at.huber.youtubeExtractor.YouTubeUriExtractor;
 import at.huber.youtubeExtractor.YtFile;
 
 public class DetailsActivity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener {
+
     private static final int READ_STORAGE_PERMISSION_REQUEST_CODE = 1;
     private static String GOOGLE_YOUTUBE_API = "AIzaSyBH8szUCt1ctKQabVeQuvWgowaKxHVjn8E";
     private YoutubeDataModel youtubeDataModel = null;
@@ -76,19 +78,19 @@ public class DetailsActivity extends YouTubeBaseActivity implements YouTubePlaye
         youtubeDataModel = getIntent().getParcelableExtra(YoutubeDataModel.class.toString());
         Log.e("", youtubeDataModel.getDescription());
 
-        mYoutubePlayerView = (YouTubePlayerView) findViewById(R.id.youtube_player);
+        mYoutubePlayerView = findViewById(R.id.youtube_player);
         mYoutubePlayerView.initialize(GOOGLE_YOUTUBE_API, this);
 
-        textViewName = (TextView) findViewById(R.id.textViewName);
-        textViewDes = (TextView) findViewById(R.id.textViewDes);
+        textViewName = findViewById(R.id.textViewName);
+        textViewDes = findViewById(R.id.textViewDes);
         // imageViewIcon = (ImageView) findViewById(R.id.imageView);
-        textViewDate = (TextView) findViewById(R.id.textViewDate);
+        textViewDate = findViewById(R.id.textViewDate);
 
         textViewName.setText(youtubeDataModel.getTitle());
         textViewDes.setText(youtubeDataModel.getDescription());
         textViewDate.setText(youtubeDataModel.getPublishedAt());
 
-        mList_videos = (RecyclerView) findViewById(R.id.mList_videos);
+        mList_videos = findViewById(R.id.mList_videos);
         new RequestYoutubeCommentAPI().execute();
         try {
             if (youtubeDataModel.getThumbnail() != null) {
@@ -215,7 +217,7 @@ public class DetailsActivity extends YouTubeBaseActivity implements YouTubePlaye
     public void downloadVideo(View view) {
         //get the download URL
         String youtubeLink = ("https://www.youtube.com/watch?v=" + youtubeDataModel.getVideo_id());
-        YouTubeUriExtractor ytEx = new YouTubeUriExtractor(this) {
+        @SuppressLint("StaticFieldLeak") YouTubeUriExtractor ytEx = new YouTubeUriExtractor(this) {
             @Override
             public void onUrisAvailable(String videoID, String videoTitle, SparseArray<YtFile> ytFiles) {
                 if (ytFiles != null) {
@@ -239,6 +241,7 @@ public class DetailsActivity extends YouTubeBaseActivity implements YouTubePlaye
     private ProgressDialog pDialog;
 
 
+    @SuppressLint("StaticFieldLeak")
     private class RequestDownloadVideoStream extends AsyncTask<String, String, String> {
 
         @Override
@@ -330,6 +333,7 @@ public class DetailsActivity extends YouTubeBaseActivity implements YouTubePlaye
     }
 
 
+    @SuppressLint("StaticFieldLeak")
     private class RequestYoutubeCommentAPI extends AsyncTask<Void, String, String> {
 
         @Override
@@ -346,8 +350,7 @@ public class DetailsActivity extends YouTubeBaseActivity implements YouTubePlaye
             try {
                 HttpResponse response = httpClient.execute(httpGet);
                 HttpEntity httpEntity = response.getEntity();
-                String json = EntityUtils.toString(httpEntity);
-                return json;
+                return EntityUtils.toString(httpEntity);
             } catch (IOException e) {
                 e.printStackTrace();
             }

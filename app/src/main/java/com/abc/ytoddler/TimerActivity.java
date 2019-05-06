@@ -44,43 +44,32 @@ public class TimerActivity extends AppCompatActivity{
         mButtonStartPause = findViewById(R.id.button_start_pause);
         mButtonReset = findViewById(R.id.button_reset);
 
-        mButtonSet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String input = mEditTextInput.getText().toString();
-                if (input.length() == 0) {
-                    Toast.makeText(TimerActivity.this, "Field can't be empty", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+        mButtonSet.setOnClickListener(v -> {
+            String input = mEditTextInput.getText().toString();
+            if (input.length() == 0) {
+                Toast.makeText(TimerActivity.this, "Field can't be empty", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-                long millisInput = Long.parseLong(input) * 60000;
-                if (millisInput == 0) {
-                    Toast.makeText(TimerActivity.this, "Please enter a positive number", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+            long millisInput = Long.parseLong(input) * 60000;
+            if (millisInput == 0) {
+                Toast.makeText(TimerActivity.this, "Please enter a positive number", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-                setTime(millisInput);
-                mEditTextInput.setText("");
+            setTime(millisInput);
+            mEditTextInput.setText("");
+        });
+
+        mButtonStartPause.setOnClickListener(v -> {
+            if (mTimerRunning) {
+                pauseTimer();
+            } else {
+                startTimer();
             }
         });
 
-        mButtonStartPause.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mTimerRunning) {
-                    pauseTimer();
-                } else {
-                    startTimer();
-                }
-            }
-        });
-
-        mButtonReset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                resetTimer();
-            }
-        });
+        mButtonReset.setOnClickListener(v -> resetTimer());
 
     }
 
@@ -159,11 +148,11 @@ public class TimerActivity extends AppCompatActivity{
             mEditTextInput.setVisibility(View.INVISIBLE);
             mButtonSet.setVisibility(View.INVISIBLE);
             mButtonReset.setVisibility(View.INVISIBLE);
-            mButtonStartPause.setText("Pause");
+            mButtonStartPause.setText(getString(R.string.PauseTimer));
         } else {
             mEditTextInput.setVisibility(View.VISIBLE);
             mButtonSet.setVisibility(View.VISIBLE);
-            mButtonStartPause.setText("Start");
+            mButtonStartPause.setText(getString(R.string.StartTimer));
 
             if (mTimeLeftInMillis < 1000) {
                 mButtonStartPause.setVisibility(View.INVISIBLE);
