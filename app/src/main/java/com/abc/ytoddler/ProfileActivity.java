@@ -4,6 +4,8 @@ import android.support.design.widget.TabLayout;
 import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -13,10 +15,12 @@ import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Objects;
+
 public class ProfileActivity extends AppCompatActivity {
 
-    private TabLayout tabLayout = null;
     private ViewPager viewPager = null;
+    private ActionBarDrawerToggle mToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +29,13 @@ public class ProfileActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
+        //toolbar.setNavigationIcon(R.drawable.ic_toolbar);
+        toolbar.setTitle("");
+        toolbar.setSubtitle("");
+        //toolbar.setLogo(R.drawable.ic_toolbar);
 
-        tabLayout = findViewById(R.id.tab_layout);
+        TabLayout tabLayout = findViewById(R.id.tab_layout);
         viewPager =  findViewById(R.id.viewPager);
 
         tabLayout.addTab(tabLayout.newTab().setText("Channel"));
@@ -53,6 +62,12 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
+
+        DrawerLayout mDrawerLayout = findViewById(R.id.drawert);
+        mToggle=new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
+        mDrawerLayout.addDrawerListener(mToggle);
+        mToggle.syncState();
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -76,6 +91,10 @@ public class ProfileActivity extends AppCompatActivity {
         {
             finish();
             startActivity(new Intent(this, TimerActivity.class));
+        }
+        else if (mToggle.onOptionsItemSelected(item))
+        {
+            return true;
         }
         return true;
     }
