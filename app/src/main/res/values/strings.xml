@@ -30,4 +30,14 @@
     <string name="PauseTimer">Pause</string>
     <string name="StartTimer">Start</string>
 
+    <string name="searchMenu">Search...</string>
+    <string name="englishMenu">English</string>
+    <string name="germanMenu">German</string>
+    <string name="polishMenu">Polish</string>
+    <string name="chineseMenu">Chinese</string>
+
+    <string name="nav_header_title">0:00</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+
 </resources>

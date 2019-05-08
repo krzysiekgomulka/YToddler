@@ -5,14 +5,31 @@
         android:id="@+id/action_search"
         android:icon='@mipmap/ic_action_search'
         android:orderInCategory="100"
-        android:title="Search..."
+        android:title="@string/searchMenu"
         app:showAsAction='always'/>
     <item
         android:id="@+id/menuTimer"
         android:title="@string/Timer" />
     <item
         android:id="@+id/languages"
-        android:title="@string/Languages" />
+        android:title="@string/Languages">
+
+        <menu>
+            <item android:id="@+id/english"
+                android:title="@string/englishMenu"/>
+
+            <item android:id="@+id/german"
+                android:title="@string/germanMenu"/>
+
+            <item android:id="@+id/polish"
+                android:title="@string/polishMenu"/>
+
+            <item android:id="@+id/chinese"
+                android:title="@string/chineseMenu"/>
+
+        </menu>
+
+    </item>
     <item
         android:id="@+id/about"
         android:title="@string/About" />
