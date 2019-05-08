@@ -43,15 +43,15 @@
 
         <TextView
             android:id="@+id/textViewDate"
-            android:layout_width="wrap_content"
+            android:layout_width="302dp"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:maxLines="1"
-            android:textColor="@color/common_gray_txt"
             android:text="Android Name sjdnjas ajskdjaksjdka kaskdjaksdj kjskdjaksj"
             android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/common_gray_txt"
             android:textSize="16dp" />
 
         <TextView
@@ -67,15 +67,15 @@
     <!--real image size is 40x50px-->
     <ImageView
         android:id="@+id/img_left_header"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/youtube_player"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
+        android:layout_marginRight="10dp"
         android:onClick="share_btn_pressed"
         android:scaleType="fitCenter"
-        android:layout_below="@+id/youtube_player"
-        android:src="@drawable/share"
+        android:src="@drawable/ic_add_black_24dp"
         android:visibility="visible" />
 
 <TextView
