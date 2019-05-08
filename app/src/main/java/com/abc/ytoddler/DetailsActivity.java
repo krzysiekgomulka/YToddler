@@ -62,7 +62,7 @@ public class DetailsActivity extends YouTubeBaseActivity implements YouTubePlaye
     TextView textViewName;
     TextView textViewDes;
     TextView textViewDate;
-    ImageView imageViewIcon;
+    ImageView imageViewIcon, ImageViewAdd;
     public static final String VIDEO_ID = "c2UNv38V6y4";
     private YouTubePlayerView mYoutubePlayerView = null;
     private YouTubePlayer mYoutubePlayer = null;
@@ -83,12 +83,14 @@ public class DetailsActivity extends YouTubeBaseActivity implements YouTubePlaye
 
         textViewName = findViewById(R.id.textViewName);
         textViewDes = findViewById(R.id.textViewDes);
-        // imageViewIcon = (ImageView) findViewById(R.id.imageView);
+        ImageViewAdd = findViewById(R.id.img_left_header);
         textViewDate = findViewById(R.id.textViewDate);
 
         textViewName.setText(youtubeDataModel.getTitle());
         textViewDes.setText(youtubeDataModel.getDescription());
         textViewDate.setText(youtubeDataModel.getPublishedAt());
+
+        ImageViewAdd.setOnClickListener(v -> startActivity(new Intent(DetailsActivity.this, Pop.class)));
 
         mList_videos = findViewById(R.id.mList_videos);
         new RequestYoutubeCommentAPI().execute();
@@ -111,6 +113,8 @@ public class DetailsActivity extends YouTubeBaseActivity implements YouTubePlaye
                 e.printStackTrace();
             }
         }
+
+
 
     }
 
