@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/common_red"
     tools:context="com.abc.ytoddler.TimerActivity">
 
     <EditText
@@ -13,6 +14,8 @@
         android:layout_above="@+id/text_view_countdown"
         android:layout_centerHorizontal="true"
         android:hint="@string/Minutes"
+        android:textColorHint="@color/white_50_percent_opacity"
+        android:textColor="@android:color/white"
         android:inputType="number"
         android:maxLength="4" />
 
@@ -21,7 +24,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/edit_text_input"
+        android:layout_marginStart="-209dp"
+        android:layout_marginTop="189dp"
         android:layout_toEndOf="@+id/edit_text_input"
+        android:background="@drawable/round_bg"
         android:text="@string/Set" />
 
     <TextView
@@ -31,7 +37,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:text="@string/Zeroes"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textSize="60sp" />
 
     <Button
@@ -39,7 +45,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/text_view_countdown"
-        android:layout_centerHorizontal="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="63dp"
+        android:layout_toEndOf="@+id/button_set"
+        android:background="@drawable/round_bg"
         android:text="@string/start" />
 
     <Button
@@ -47,8 +56,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/text_view_countdown"
-        android:layout_marginStart="11dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="63dp"
         android:layout_toEndOf="@+id/button_start_pause"
+        android:background="@drawable/round_bg"
         android:text="@string/reset"
         android:visibility="invisible"
         tools:visibility="visible" />

@@ -75,7 +75,7 @@
                 android:id="@+id/textViewSignup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="15dp"
+                android:padding="10dp"
                 android:text="@string/Don_t_have_account_Sign_Up"
                 android:textAlignment="center"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
@@ -88,7 +88,7 @@
                 android:layout_marginLeft="26dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="26dp"
-                android:layout_marginBottom="60dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/round_bg"
                 android:drawableStart="@drawable/ic_google_logo"
                 android:text="@string/login_with_google" />
@@ -100,9 +100,11 @@
                 android:layout_marginLeft="26dp"
                 android:layout_marginTop="0dp"
                 android:layout_marginRight="26dp"
-                android:layout_marginBottom="60dp"
+                android:layout_marginBottom="0dp"
                 android:background="@drawable/round_bg"
                 android:drawableStart="@drawable/ic_facebook_logo"
+                android:paddingStart="13dip"
+                android:paddingEnd="0dip"
                 android:text="@string/login_with_facebook" />
 
         </LinearLayout>
