@@ -40,4 +40,8 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
 
+    <string name="four_button">1-4 years old</string>
+    <string name="seven_button">4-7 years old</string>
+    <string name="ten_button">7-10 years old</string>
+
 </resources>
