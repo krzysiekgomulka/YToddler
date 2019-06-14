@@ -18,19 +18,18 @@ import java.util.Locale;
 import static com.abc.ytoddler.R.layout.activity_timer;
 
 public class TimerActivity extends AppCompatActivity{
-    private EditText mEditTextInput;
-    private TextView mTextViewCountDown;
-    private Button mButtonSet;
+    private EditText mEditTextInput;//
+
+    private Button mButtonSet;//
     private Button mButtonStartPause;
     private Button mButtonReset;
 
+    private TextView mTextViewCountDown;
     private CountDownTimer mCountDownTimer;
-
     private boolean mTimerRunning;
-
-    private long mStartTimeInMillis;
-    private long mTimeLeftInMillis;
-    private long mEndTime;
+    private long startTimeInMilliSeconds;
+    private long timeLeftInMilliSeconds;
+    private long finalTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,11 +75,8 @@ public class TimerActivity extends AppCompatActivity{
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)
     {
-        //replaces the default 'Back' button action
         if(keyCode==KeyEvent.KEYCODE_BACK)
         {
-            //do whatever you want the 'Back' button to do
-            //as an example the 'Back' button is set to start a new Activity named 'NewActivity'
             this.startActivity(new Intent(TimerActivity.this,ProfileActivity.class));
         }
         return true;
@@ -88,62 +84,62 @@ public class TimerActivity extends AppCompatActivity{
 
 
     private void setTime(long milliseconds) {
-        mStartTimeInMillis = milliseconds;
+        startTimeInMilliSeconds = milliseconds;
         resetTimer();
         closeKeyboard();
     }
 
     private void startTimer() {
-        mEndTime = System.currentTimeMillis() + mTimeLeftInMillis;
+        finalTime = System.currentTimeMillis() + timeLeftInMilliSeconds;
 
-        mCountDownTimer = new CountDownTimer(mTimeLeftInMillis, 1000) {
+        mCountDownTimer = new CountDownTimer(timeLeftInMilliSeconds, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                mTimeLeftInMillis = millisUntilFinished;
-                updateCountDownText();
+                timeLeftInMilliSeconds = millisUntilFinished;
+                updateTheCountDown();
             }
 
             @Override
             public void onFinish() {
                 mTimerRunning = false;
-                updateWatchInterface();
+                updateTheWatch();
             }
         }.start();
 
         mTimerRunning = true;
-        updateWatchInterface();
+        updateTheWatch();
     }
 
     private void pauseTimer() {
         mCountDownTimer.cancel();
         mTimerRunning = false;
-        updateWatchInterface();
+        updateTheWatch();
     }
 
     private void resetTimer() {
-        mTimeLeftInMillis = mStartTimeInMillis;
-        updateCountDownText();
-        updateWatchInterface();
+        timeLeftInMilliSeconds = startTimeInMilliSeconds;
+        updateTheCountDown();
+        updateTheWatch();
     }
 
-    private void updateCountDownText() {
-        int hours = (int) (mTimeLeftInMillis / 1000) / 3600;
-        int minutes = (int) ((mTimeLeftInMillis / 1000) % 3600) / 60;
-        int seconds = (int) (mTimeLeftInMillis / 1000) % 60;
+    private void updateTheCountDown() {
+        int formatHours = (int) (timeLeftInMilliSeconds / 1000) / 3600;
+        int formatMinutes = (int) ((timeLeftInMilliSeconds / 1000) % 3600) / 60;
+        int formatSeconds = (int) (timeLeftInMilliSeconds / 1000) % 60;
 
-        String timeLeftFormatted;
-        if (hours > 0) {
-            timeLeftFormatted = String.format(Locale.getDefault(),
-                    "%d:%02d:%02d", hours, minutes, seconds);
+        String timeLeftInReadableFormat;
+        if (formatHours > 0) {
+            timeLeftInReadableFormat = String.format(Locale.getDefault(),
+                    "%d:%02d:%02d", formatHours, formatMinutes, formatSeconds);
         } else {
-            timeLeftFormatted = String.format(Locale.getDefault(),
-                    "%02d:%02d", minutes, seconds);
+            timeLeftInReadableFormat = String.format(Locale.getDefault(),
+                    "%02d:%02d", formatMinutes, formatSeconds);
         }
 
-        mTextViewCountDown.setText(timeLeftFormatted);
+        mTextViewCountDown.setText(timeLeftInReadableFormat);
     }
 
-    private void updateWatchInterface() {
+    private void updateTheWatch() {
         if (mTimerRunning) {
             mEditTextInput.setVisibility(View.INVISIBLE);
             mButtonSet.setVisibility(View.INVISIBLE);
@@ -154,13 +150,13 @@ public class TimerActivity extends AppCompatActivity{
             mButtonSet.setVisibility(View.VISIBLE);
             mButtonStartPause.setText(getString(R.string.StartTimer));
 
-            if (mTimeLeftInMillis < 1000) {
+            if (timeLeftInMilliSeconds < 1000) {
                 mButtonStartPause.setVisibility(View.INVISIBLE);
             } else {
                 mButtonStartPause.setVisibility(View.VISIBLE);
             }
 
-            if (mTimeLeftInMillis < mStartTimeInMillis) {
+            if (timeLeftInMilliSeconds < startTimeInMilliSeconds) {
                 mButtonReset.setVisibility(View.VISIBLE);
             } else {
                 mButtonReset.setVisibility(View.INVISIBLE);
@@ -183,10 +179,10 @@ public class TimerActivity extends AppCompatActivity{
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
 
-        editor.putLong("startTimeInMillis", mStartTimeInMillis);
-        editor.putLong("millisLeft", mTimeLeftInMillis);
+        editor.putLong("startTimeInMillis", startTimeInMilliSeconds);
+        editor.putLong("millisLeft", timeLeftInMilliSeconds);
         editor.putBoolean("timerRunning", mTimerRunning);
-        editor.putLong("endTime", mEndTime);
+        editor.putLong("endTime", finalTime);
 
         editor.apply();
 
@@ -201,22 +197,22 @@ public class TimerActivity extends AppCompatActivity{
 
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
 
-        mStartTimeInMillis = prefs.getLong("startTimeInMillis", 600000);
-        mTimeLeftInMillis = prefs.getLong("millisLeft", mStartTimeInMillis);
+        startTimeInMilliSeconds = prefs.getLong("startTimeInMillis", 600000);
+        timeLeftInMilliSeconds = prefs.getLong("millisLeft", startTimeInMilliSeconds);
         mTimerRunning = prefs.getBoolean("timerRunning", false);
 
-        updateCountDownText();
-        updateWatchInterface();
+        updateTheCountDown();
+        updateTheWatch();
 
         if (mTimerRunning) {
-            mEndTime = prefs.getLong("endTime", 0);
-            mTimeLeftInMillis = mEndTime - System.currentTimeMillis();
+            finalTime = prefs.getLong("endTime", 0);
+            timeLeftInMilliSeconds = finalTime - System.currentTimeMillis();
 
-            if (mTimeLeftInMillis < 0) {
-                mTimeLeftInMillis = 0;
+            if (timeLeftInMilliSeconds < 0) {
+                timeLeftInMilliSeconds = 0;
                 mTimerRunning = false;
-                updateCountDownText();
-                updateWatchInterface();
+                updateTheCountDown();
+                updateTheWatch();
             } else {
                 startTimer();
             }

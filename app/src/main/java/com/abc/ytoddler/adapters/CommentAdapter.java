@@ -15,10 +15,6 @@ import java.util.ArrayList;
 import com.abc.ytoddler.R;
 import com.abc.ytoddler.models.YoutubeCommentModel;
 
-/**
- * Created by mdmunirhossain on 1/4/18.
- */
-
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.YoutubeCommentHolder> {
 
     private ArrayList<YoutubeCommentModel> dataSet;
@@ -31,7 +27,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.YoutubeC
 
     @NonNull
     @Override
-    public CommentAdapter.YoutubeCommentHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CommentAdapter.YoutubeCommentHolder
+    onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.youtube_comment_layout, parent, false);
         return new YoutubeCommentHolder(view);
@@ -39,9 +36,9 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.YoutubeC
 
     @Override
     public void onBindViewHolder(@NonNull YoutubeCommentHolder holder, int position) {
-        TextView textViewName = holder.textViewName;
+        TextView textViewName = holder.name;
         TextView feedback = holder.feedback;
-        ImageView imageView = holder.imageViewIcon;
+        ImageView imageView = holder.icon;
         YoutubeCommentModel object = dataSet.get(position);
         textViewName.setText(object.getTitle());
         feedback.setText(object.getComment());
@@ -65,14 +62,14 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.YoutubeC
 
     static class YoutubeCommentHolder extends RecyclerView.ViewHolder {
 
-        TextView textViewName;
+        TextView name;
         TextView feedback;
-        ImageView imageViewIcon;
+        ImageView icon;
 
         YoutubeCommentHolder(View itemView) {
             super(itemView);
-            this.textViewName = itemView.findViewById(R.id.textViewName);
-            this.imageViewIcon = itemView.findViewById(R.id.profile_image);
+            this.name = itemView.findViewById(R.id.textViewName);
+            this.icon = itemView.findViewById(R.id.profile_image);
             this.feedback = itemView.findViewById(R.id.feedback);
 
         }

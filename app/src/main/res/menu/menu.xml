@@ -10,11 +10,11 @@
     <item
         android:id="@+id/menuTimer"
         android:title="@string/Timer" />
-    <item
+    <!--<item
         android:id="@+id/languages"
         android:title="@string/Languages">
 
-        <menu>
+        <menu>-->
             <item android:id="@+id/english"
                 android:title="@string/englishMenu"/>
 
@@ -27,9 +27,9 @@
             <item android:id="@+id/chinese"
                 android:title="@string/chineseMenu"/>
 
-        </menu>
+        <!--</menu>
 
-    </item>
+    </item>-->
     <item
         android:id="@+id/about"
         android:title="@string/About" />

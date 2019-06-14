@@ -1,5 +1,7 @@
 package com.abc.ytoddler;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.support.design.widget.TabLayout;
 import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
@@ -13,11 +15,15 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.TextView;
 
+import com.abc.ytoddler.helpers.LocaleHelper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.Objects;
+
+import io.paperdb.Paper;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -26,9 +32,25 @@ public class ProfileActivity extends AppCompatActivity {
     MaterialSearchView searchView;
 
     @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(LocaleHelper.onAttach(newBase, "en"));
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        //Init Paper first
+        Paper.init(this);
+
+        //Default language is English
+        String language = Paper.book().read("language");
+        if(language == null)
+            Paper.book().write("language", "en");
+
+        updateView((String)Paper.book().read("language"));
+
 
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -45,9 +67,9 @@ public class ProfileActivity extends AppCompatActivity {
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         viewPager =  findViewById(R.id.viewPager);
 
-        tabLayout.addTab(tabLayout.newTab().setText("Channel"));
-        tabLayout.addTab(tabLayout.newTab().setText("Playlist"));
-        tabLayout.addTab(tabLayout.newTab().setText("Live"));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.channel));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.playlist));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.live));
 
         final PagerAdapter adapter = new com.abc.ytoddler.adapters.PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
@@ -77,6 +99,11 @@ public class ProfileActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
     }
 
+    private void updateView(String lang) {
+        Context context = LocaleHelper.setLocale(this, lang);
+        Resources resources = context.getResources();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -99,6 +126,16 @@ public class ProfileActivity extends AppCompatActivity {
         {
             finish();
             startActivity(new Intent(this, TimerActivity.class));
+        }
+        else if (item.getItemId() == R.id.english)
+        {
+            Paper.book().write("language", "en");
+            updateView(Paper.book().read("language"));
+        }
+        else if (item.getItemId() == R.id.polish)
+        {
+            Paper.book().write("language", "pl");
+            updateView(Paper.book().read("language"));
         }
         else if (mToggle.onOptionsItemSelected(item))
         {

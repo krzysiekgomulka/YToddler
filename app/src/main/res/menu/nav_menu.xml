@@ -4,7 +4,7 @@
         <menu>
             <item
                 android:id="@+id/boys_one_four_years_old"
-                android:title="1-4 years old" />
+                android:title="2-4 years old" />
             <item
                 android:id="@+id/boys_four_seven_years_old"
                 android:title="4-7 years old" />

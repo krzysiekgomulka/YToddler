@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import com.abc.ytoddler.R;
 import com.abc.ytoddler.adapters.VideoPostAdapter;
 import com.abc.ytoddler.models.YoutubeDataModel;
-import com.abc.ytoddler.interfaces.OnItemClickListener;
 import com.abc.ytoddler.DetailsActivity;
 
 
@@ -60,13 +59,10 @@ public class ChannelFragment extends Fragment {
 
     private void initList(ArrayList<YoutubeDataModel> mListData) {
         mList_videos.setLayoutManager(new LinearLayoutManager(getActivity()));
-        VideoPostAdapter adapter = new VideoPostAdapter(getActivity(), mListData, new OnItemClickListener() {
-            @Override
-            public void onItemClick(YoutubeDataModel item) {
-                Intent intent = new Intent(getActivity(), DetailsActivity.class);
-                intent.putExtra(YoutubeDataModel.class.toString(), item);
-                startActivity(intent);
-            }
+        VideoPostAdapter adapter = new VideoPostAdapter(getActivity(), mListData, item -> {
+            Intent intent = new Intent(getActivity(), DetailsActivity.class);
+            intent.putExtra(YoutubeDataModel.class.toString(), item);
+            startActivity(intent);
         });
         mList_videos.setAdapter(adapter);
 

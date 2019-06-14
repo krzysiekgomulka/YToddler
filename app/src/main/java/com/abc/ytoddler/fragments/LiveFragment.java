@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-//import android.widget.AdapterView;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -31,7 +30,6 @@ import java.util.ArrayList;
 import com.abc.ytoddler.DetailsActivity;
 import com.abc.ytoddler.R;
 import com.abc.ytoddler.adapters.VideoPostAdapter;
-import com.abc.ytoddler.interfaces.OnItemClickListener;
 import com.abc.ytoddler.models.YoutubeDataModel;
 
 /**

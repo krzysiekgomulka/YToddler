@@ -1,27 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">YToddler</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="email">email</string>
-    <string name="password">password</string>
+    <string name="password">hasło</string>
     <string name="Login">Login</string>
-    <string name="Don_t_have_account_Sign_Up">"Don't have account? Sign Up"</string>
-    <string name="ForgotPassword">"Forgot password?"</string>
-    <string name="Sign_up">Sign up</string>
-    <string name="Already_have_an_account_Login">Already have an account? Login</string>
-    <string name="Timer">Timer</string>
-    <string name="Languages">Languages</string>
-    <string name="About">About</string>
-    <string name="Logout">Logout</string>
-    <string name="Download_This_Video">Download This Video</string>
-    <string name="Minutes">Minutes</string>
-    <string name="Set">Set</string>
+    <string name="Don_t_have_account_Sign_Up">"Nie masz konta? Załóż je."</string>
+    <string name="ForgotPassword">"Zapomniałeś hasła?"</string>
+    <string name="Sign_up">Rejestracja</string>
+    <string name="Already_have_an_account_Login">Masz już konto? Zaloguj się.</string>
+    <string name="Timer">Czasomierz</string>
+    <string name="Languages">Języki</string>
+    <string name="About">O aplikacji</string>
+    <string name="Logout">Wyloguj</string>
+    <string name="Minutes">Minuty</string>
+    <string name="Set">Ustaw</string>
     <string name="Zeroes">00:00</string>
     <string name="start">start</string>
     <string name="reset">reset</string>
-    <string name="Logo_Description">Logo Description</string>
+    <string name="Logo_Description">Opis Logo</string>
 
+    <string name="Download_This_Video">Download This Video</string>
     <string name="login_with_google">LOGIN WITH GOOGLE</string>
     <string name="login_with_facebook">LOGIN WITH FACEBOOK</string>
 
@@ -45,9 +44,7 @@
     <string name="seven_button">4-7 years old</string>
     <string name="ten_button">7-10 years old</string>
 
-    <string name="channel">Channel</string>
-    <string name="playlist">Playlist</string>
-    <string name="live">Live</string>
-
-
+    <string name="channel">Kanał</string>
+    <string name="playlist">Ulubione</string>
+    <string name="live">Na żywo</string>
 </resources>

@@ -67,6 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="7dp"
+                android:background="@drawable/round_bg"
                 android:text="@string/Sign_up"
                 android:textAllCaps="false"
                 android:textColor="@color/ec_text_login_email" />

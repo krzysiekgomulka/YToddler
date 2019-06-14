@@ -4,10 +4,8 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,10 +16,6 @@ import java.util.ArrayList;
 import com.abc.ytoddler.interfaces.OnItemClickListener;
 import com.abc.ytoddler.models.YoutubeDataModel;
 import com.squareup.picasso.Picasso;
-
-/**
- * Created by mdmunirhossain on 12/18/17.
- */
 
 public class VideoPostAdapter extends RecyclerView.Adapter<VideoPostAdapter.YoutubePostHolder> {
 
@@ -45,7 +39,6 @@ public class VideoPostAdapter extends RecyclerView.Adapter<VideoPostAdapter.Yout
 
     @Override
     public void onBindViewHolder(@NonNull YoutubePostHolder holder, int position) {
-        //set the views here
         TextView textViewTitle = holder.textViewTitle;
         TextView textViewDes = holder.textViewDes;
         TextView textViewDate = holder.textViewDate;

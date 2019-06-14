@@ -30,7 +30,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.entity.StrictContentLengthStrategy;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,7 +39,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -64,10 +62,7 @@ public class DetailsActivity extends YouTubeBaseActivity implements YouTubePlaye
     TextView textViewDate;
     ImageView imageViewIcon, ImageViewAdd;
     public static final String VIDEO_ID = "c2UNv38V6y4";
-    private YouTubePlayerView mYoutubePlayerView = null;
     private YouTubePlayer mYoutubePlayer = null;
-    private ArrayList<YoutubeCommentModel> mListData = new ArrayList<>();
-    private CommentAdapter mAdapter = null;
     private RecyclerView mList_videos = null;
 
 
@@ -78,7 +73,7 @@ public class DetailsActivity extends YouTubeBaseActivity implements YouTubePlaye
         youtubeDataModel = getIntent().getParcelableExtra(YoutubeDataModel.class.toString());
         Log.e("", youtubeDataModel.getDescription());
 
-        mYoutubePlayerView = findViewById(R.id.youtube_player);
+        YouTubePlayerView mYoutubePlayerView = findViewById(R.id.youtube_player);
         mYoutubePlayerView.initialize(GOOGLE_YOUTUBE_API, this);
 
         textViewName = findViewById(R.id.textViewName);
@@ -270,42 +265,38 @@ public class DetailsActivity extends YouTubeBaseActivity implements YouTubePlaye
             try {
                 u = new URL(params[0]);
                 is = u.openStream();
-                URLConnection huc = (URLConnection) u.openConnection();
+                URLConnection huc = u.openConnection();
                 huc.connect();
                 int size = huc.getContentLength();
 
-                if (huc != null) {
-                    String file_name = params[1] + ".mp4";
-                    String storagePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"/YoutubeVideos";
-                    File f = new File(storagePath);
-                    if (!f.exists()) {
-                        f.mkdir();
-                    }
+                String file_name = params[1] + ".mp4";
+                String storagePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"/YoutubeVideos";
+                File f = new File(storagePath);
+                if (!f.exists()) {
+                    f.mkdir();
+                }
 
-                    FileOutputStream fos = new FileOutputStream(f+"/"+file_name);
-                    byte[] buffer = new byte[1024];
-                    int total = 0;
-                    if (is != null) {
-                        while ((len1 = is.read(buffer)) != -1) {
-                            total += len1;
-                            // publishing the progress....
-                            // After this onProgressUpdate will be called
-                            progress = (int) ((total * 100) / size);
-                            if(progress >= 0) {
-                                temp_progress = progress;
-                                publishProgress("" + progress);
-                            }else
-                                publishProgress("" + temp_progress+1);
+                FileOutputStream fos = new FileOutputStream(f+"/"+file_name);
+                byte[] buffer = new byte[1024];
+                int total = 0;
+                if (is != null) {
+                    while ((len1 = is.read(buffer)) != -1) {
+                        total += len1;
+                        // publishing the progress....
+                        // After this onProgressUpdate will be called
+                        progress = (int) ((total * 100) / size);
+                        if(progress >= 0) {
+                            temp_progress = progress;
+                            publishProgress("" + progress);
+                        }else
+                            publishProgress("" + temp_progress+1);
 
-                            fos.write(buffer, 0, len1);
-                        }
-                    }
-
-                    if (fos != null) {
-                        publishProgress("" + 100);
-                        fos.close();
+                        fos.write(buffer, 0, len1);
                     }
                 }
+
+                publishProgress("" + 100);
+                fos.close();
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -368,7 +359,7 @@ public class DetailsActivity extends YouTubeBaseActivity implements YouTubePlaye
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     Log.e("response", jsonObject.toString());
-                    mListData = parseJson(jsonObject);
+                    ArrayList<YoutubeCommentModel> mListData = parseJson(jsonObject);
                     initVideoList(mListData);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -379,7 +370,7 @@ public class DetailsActivity extends YouTubeBaseActivity implements YouTubePlaye
 
     public void initVideoList(ArrayList<YoutubeCommentModel> mListData) {
         mList_videos.setLayoutManager(new LinearLayoutManager(this));
-        mAdapter = new CommentAdapter(this, mListData);
+        CommentAdapter mAdapter = new CommentAdapter(this, mListData);
         mList_videos.setAdapter(mAdapter);
     }
 
@@ -418,7 +409,7 @@ public class DetailsActivity extends YouTubeBaseActivity implements YouTubePlaye
 
     public void requestPermissionForReadExtertalStorage() throws Exception {
         try {
-            ActivityCompat.requestPermissions((Activity) this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     READ_STORAGE_PERMISSION_REQUEST_CODE);
         } catch (Exception e) {
             e.printStackTrace();
