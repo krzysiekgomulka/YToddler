@@ -79,6 +79,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //btn_login.setOnClickListener((View v) -> SignInGoogle());
     }
 
+    @Override
+    protected void onResume(){
+        super.onResume();
+    }
+
     public void SignInGoogle() {
         progressBar.setVisibility(View.VISIBLE);
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();

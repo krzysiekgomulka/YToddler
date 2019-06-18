@@ -1,7 +1,10 @@
 package com.abc.ytoddler;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.IntentFilter;
 import android.content.res.Resources;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
@@ -11,10 +14,11 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.WindowManager;
+import android.view.View;
 import android.widget.TextView;
 
 import com.abc.ytoddler.helpers.LocaleHelper;
@@ -22,11 +26,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 import io.paperdb.Paper;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final String TAG = "ProfileActivity";
     private ViewPager viewPager = null;
     private ActionBarDrawerToggle mToggle;
     MaterialSearchView searchView;
@@ -97,6 +104,11 @@ public class ProfileActivity extends AppCompatActivity {
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        View navigationHeaderView = navigationView.getHeaderView(0);
+        TextView bigClock = (TextView) navigationHeaderView.findViewById(R.id.bigClock);
     }
 
     private void updateView(String lang) {
@@ -142,5 +154,90 @@ public class ProfileActivity extends AppCompatActivity {
             return true;
         }
         return true;
+    }
+
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item){
+        if(item.getItemId() == R.id.girls_one_four_years_old){
+            Intent intent = new Intent(this, FourGirlActivity.class);
+            this.startActivity(intent);
+        } else if (item.getItemId() == R.id.girls_four_seven_years_old){
+            Intent intent = new Intent(this, SevenGirlActivity.class);
+            this.startActivity(intent);
+        } else if (item.getItemId() == R.id.girls_seven_ten_years_old){
+            Intent intent = new Intent(this, TenGirlActivity.class);
+            this.startActivity(intent);
+        } else if (item.getItemId() == R.id.boys_one_four_years_old){
+            Intent intent = new Intent(this, FourBoyActivity.class);
+            this.startActivity(intent);
+        } else if (item.getItemId() == R.id.boys_four_seven_years_old){
+            Intent intent = new Intent(this, SevenBoyActivity.class);
+            this.startActivity(intent);
+        } else if (item.getItemId() == R.id.boys_seven_ten_years_old){
+            Intent intent = new Intent(this, TenBoyActivity.class);
+            this.startActivity(intent);
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawert);
+        return true;
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+    private BroadcastReceiver br = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            updateGUI(intent); // or whatever method used to update your GUI fields
+        }
+    };
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        registerReceiver(br, new IntentFilter(BroadcastService.COUNTDOWN_BR));
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        unregisterReceiver(br);
+    }
+
+    @Override
+    public void onStop() {
+        try {
+            unregisterReceiver(br);
+        } catch (Exception e) {
+            // Receiver was probably already stopped in onPause()
+        }
+        super.onStop();
+    }
+    @Override
+    public void onDestroy() {
+        stopService(new Intent(this, BroadcastService.class));
+        Log.i(TAG, "Stopped service");
+        super.onDestroy();
+    }
+
+    private void updateGUI(Intent intent) {
+        if (intent.getExtras() != null) {
+            long millisUntilFinished = intent.getLongExtra("countdown", 0);
+            Log.i(TAG, "Countdown seconds remaining: " +  millisUntilFinished / 1000);
+            String dateString = String.format("%02d:%02d:%02d",
+                    TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
+                    TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
+                    TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)));
+            Toolbar toolbar = findViewById(R.id.toolbar);
+            toolbar.setTitle(dateString);
+
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            View navigationHeaderView = navigationView.getHeaderView(0);
+            TextView bigClock = (TextView) navigationHeaderView.findViewById(R.id.bigClock);
+            bigClock.setText(dateString);
+        }
     }
 }

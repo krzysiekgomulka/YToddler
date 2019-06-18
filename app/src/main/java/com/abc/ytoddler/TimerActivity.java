@@ -1,10 +1,17 @@
 package com.abc.ytoddler;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.CountDownTimer;
+import android.os.Handler;
+import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -14,27 +21,33 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import static com.abc.ytoddler.R.layout.activity_timer;
 
 public class TimerActivity extends AppCompatActivity{
     private EditText mEditTextInput;//
 
-    private Button mButtonSet;//
+    private Button mButtonSet;
     private Button mButtonStartPause;
     private Button mButtonReset;
 
     private TextView mTextViewCountDown;
-    private CountDownTimer mCountDownTimer;
-    private boolean mTimerRunning;
-    private long startTimeInMilliSeconds;
-    private long timeLeftInMilliSeconds;
-    private long finalTime;
+
+    BroadcastService broadcastService = new BroadcastService();
+
+    Boolean isTimerOn = false;
+    Boolean resetIsVisible = false;
+    Boolean isPause = false;
+
+    long millisUntilFinished;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(activity_timer);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("timer", MODE_PRIVATE);
 
         mEditTextInput = findViewById(R.id.edit_text_input);
         mTextViewCountDown = findViewById(R.id.text_view_countdown);
@@ -56,20 +69,67 @@ public class TimerActivity extends AppCompatActivity{
                 return;
             }
 
-            setTime(millisInput);
+            String dateString = String.format("%02d:%02d:%02d",
+                    TimeUnit.MILLISECONDS.toHours(millisInput),
+                    TimeUnit.MILLISECONDS.toMinutes(millisInput) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisInput)),
+                    TimeUnit.MILLISECONDS.toSeconds(millisInput) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisInput)));
+
             mEditTextInput.setText("");
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mTextViewCountDown.setText(dateString);
+                }
+            }, 300);
+
+            SharedPreferences.Editor editorSharedPreferences = sharedPreferences.edit();
+            editorSharedPreferences.putLong("millis", millisInput);
+            editorSharedPreferences.commit();
+
+            closeKeyboard();
+
+            if (isTimerOn == true){
+                final Handler handler2 = new Handler();
+                handler2.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        resetTimer();
+                    }
+                }, 300);
+            }
         });
 
         mButtonStartPause.setOnClickListener(v -> {
-            if (mTimerRunning) {
-                pauseTimer();
-            } else {
-                startTimer();
+            if(resetIsVisible == false){
+                mButtonReset.setVisibility(View.VISIBLE);
+            }
+
+            if (isTimerOn == false){
+                mButtonStartPause.setText("stop");
+
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        startTimer();
+                    }
+                }, 300);
+            }
+            else{
+                mButtonStartPause.setText("start");
+
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        pauseTimer();
+                    }
+                }, 300);
             }
         });
 
         mButtonReset.setOnClickListener(v -> resetTimer());
-
     }
 
     @Override
@@ -83,85 +143,49 @@ public class TimerActivity extends AppCompatActivity{
     }
 
 
-    private void setTime(long milliseconds) {
-        startTimeInMilliSeconds = milliseconds;
-        resetTimer();
-        closeKeyboard();
-    }
-
     private void startTimer() {
-        finalTime = System.currentTimeMillis() + timeLeftInMilliSeconds;
+        if (isPause == true) {
+            SharedPreferences sharedPreferences = getSharedPreferences("timer", MODE_PRIVATE);
+            SharedPreferences.Editor editorSharedPreferences = sharedPreferences.edit();
+            editorSharedPreferences.putLong("pause_millis", millisUntilFinished);
+            editorSharedPreferences.commit();
 
-        mCountDownTimer = new CountDownTimer(timeLeftInMilliSeconds, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                timeLeftInMilliSeconds = millisUntilFinished;
-                updateTheCountDown();
-            }
+            startService(new Intent(this, BroadcastService.class));
+            isTimerOn = true;
+            isPause = false;
+        }
+        else{
+            startService(new Intent(this, BroadcastService.class));
+            isTimerOn = true;
+            isPause = false;
 
-            @Override
-            public void onFinish() {
-                mTimerRunning = false;
-                updateTheWatch();
-            }
-        }.start();
-
-        mTimerRunning = true;
-        updateTheWatch();
+        }
     }
 
     private void pauseTimer() {
-        mCountDownTimer.cancel();
-        mTimerRunning = false;
-        updateTheWatch();
+        if (isPause == false){
+            if(isTimerOn == true){
+                stopService(new Intent(getApplicationContext(), BroadcastService.class));
+                isTimerOn = false;
+                isPause = true;
+            }
+        }
     }
 
     private void resetTimer() {
-        timeLeftInMilliSeconds = startTimeInMilliSeconds;
-        updateTheCountDown();
-        updateTheWatch();
-    }
+        stopService(new Intent(getApplicationContext(), BroadcastService.class));
+        isTimerOn = false;
+        isPause = false;
+        mButtonStartPause.setText("stop");
 
-    private void updateTheCountDown() {
-        int formatHours = (int) (timeLeftInMilliSeconds / 1000) / 3600;
-        int formatMinutes = (int) ((timeLeftInMilliSeconds / 1000) % 3600) / 60;
-        int formatSeconds = (int) (timeLeftInMilliSeconds / 1000) % 60;
 
-        String timeLeftInReadableFormat;
-        if (formatHours > 0) {
-            timeLeftInReadableFormat = String.format(Locale.getDefault(),
-                    "%d:%02d:%02d", formatHours, formatMinutes, formatSeconds);
-        } else {
-            timeLeftInReadableFormat = String.format(Locale.getDefault(),
-                    "%02d:%02d", formatMinutes, formatSeconds);
-        }
-
-        mTextViewCountDown.setText(timeLeftInReadableFormat);
-    }
-
-    private void updateTheWatch() {
-        if (mTimerRunning) {
-            mEditTextInput.setVisibility(View.INVISIBLE);
-            mButtonSet.setVisibility(View.INVISIBLE);
-            mButtonReset.setVisibility(View.INVISIBLE);
-            mButtonStartPause.setText(getString(R.string.PauseTimer));
-        } else {
-            mEditTextInput.setVisibility(View.VISIBLE);
-            mButtonSet.setVisibility(View.VISIBLE);
-            mButtonStartPause.setText(getString(R.string.StartTimer));
-
-            if (timeLeftInMilliSeconds < 1000) {
-                mButtonStartPause.setVisibility(View.INVISIBLE);
-            } else {
-                mButtonStartPause.setVisibility(View.VISIBLE);
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startTimer();
             }
-
-            if (timeLeftInMilliSeconds < startTimeInMilliSeconds) {
-                mButtonReset.setVisibility(View.VISIBLE);
-            } else {
-                mButtonReset.setVisibility(View.INVISIBLE);
-            }
-        }
+        }, 300);
     }
 
     private void closeKeyboard() {
@@ -172,50 +196,49 @@ public class TimerActivity extends AppCompatActivity{
         }
     }
 
+    private BroadcastReceiver br = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            updateGUI(intent); // or whatever method used to update your GUI fields
+        }
+    };
+
     @Override
-    protected void onStop() {
+    public void onResume() {
+        super.onResume();
+        registerReceiver(br, new IntentFilter(BroadcastService.COUNTDOWN_BR));
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        unregisterReceiver(br);
+    }
+
+    @Override
+    public void onStop() {
+        try {
+            unregisterReceiver(br);
+        } catch (Exception e) {
+            // Receiver was probably already stopped in onPause()
+        }
         super.onStop();
-
-        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-
-        editor.putLong("startTimeInMillis", startTimeInMilliSeconds);
-        editor.putLong("millisLeft", timeLeftInMilliSeconds);
-        editor.putBoolean("timerRunning", mTimerRunning);
-        editor.putLong("endTime", finalTime);
-
-        editor.apply();
-
-        if (mCountDownTimer != null) {
-            mCountDownTimer.cancel();
-        }
     }
-
     @Override
-    protected void onStart() {
-        super.onStart();
+    public void onDestroy() {
+        stopService(new Intent(this, BroadcastService.class));
+        super.onDestroy();
+    }
 
-        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
-
-        startTimeInMilliSeconds = prefs.getLong("startTimeInMillis", 600000);
-        timeLeftInMilliSeconds = prefs.getLong("millisLeft", startTimeInMilliSeconds);
-        mTimerRunning = prefs.getBoolean("timerRunning", false);
-
-        updateTheCountDown();
-        updateTheWatch();
-
-        if (mTimerRunning) {
-            finalTime = prefs.getLong("endTime", 0);
-            timeLeftInMilliSeconds = finalTime - System.currentTimeMillis();
-
-            if (timeLeftInMilliSeconds < 0) {
-                timeLeftInMilliSeconds = 0;
-                mTimerRunning = false;
-                updateTheCountDown();
-                updateTheWatch();
-            } else {
-                startTimer();
-            }
+    private void updateGUI(Intent intent) {
+        if (intent.getExtras() != null) {
+            millisUntilFinished = intent.getLongExtra("countdown", 0);
+            String dateString = String.format("%02d:%02d:%02d",
+                    TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
+                    TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
+                    TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)));
+            mTextViewCountDown.setText(dateString);
         }
     }
+
 }

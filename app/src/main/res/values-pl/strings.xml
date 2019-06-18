@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">YToddler</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="email">email</string>
@@ -20,9 +21,9 @@
     <string name="reset">reset</string>
     <string name="Logo_Description">Opis Logo</string>
 
-    <string name="Download_This_Video">Download This Video</string>
-    <string name="login_with_google">LOGIN WITH GOOGLE</string>
-    <string name="login_with_facebook">LOGIN WITH FACEBOOK</string>
+    <string name="Download_This_Video">Pobierz</string>
+    <string name="login_with_google">ZALOGUJ SIE Z GOOGLE</string>
+    <string name="login_with_facebook">ZALOGUJ SIE Z FACEBOOK</string>
 
     <string name="open">Open</string>
     <string name="close">Close</string>
@@ -30,21 +31,23 @@
     <string name="PauseTimer">Pause</string>
     <string name="StartTimer">Start</string>
 
-    <string name="searchMenu">Search...</string>
+    <string name="searchMenu">Szukaj....</string>
     <string name="englishMenu">English</string>
     <string name="germanMenu">German</string>
-    <string name="polishMenu">Polish</string>
+    <string name="polishMenu">Polski</string>
     <string name="chineseMenu">Chinese</string>
 
     <string name="nav_header_title">0:00</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
 
-    <string name="four_button">1-4 years old</string>
-    <string name="seven_button">4-7 years old</string>
-    <string name="ten_button">7-10 years old</string>
+    <string name="four_button">1-4 lata</string>
+    <string name="seven_button">4-7 lata</string>
+    <string name="ten_button">7-10 lata</string>
 
     <string name="channel">Kanał</string>
     <string name="playlist">Ulubione</string>
     <string name="live">Na żywo</string>
+
+    <string name="title_activity_custom_playlist">CustomPlaylistActivity</string>
 </resources>

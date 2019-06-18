@@ -5,7 +5,9 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -85,7 +87,16 @@ public class DetailsActivity extends YouTubeBaseActivity implements YouTubePlaye
         textViewDes.setText(youtubeDataModel.getDescription());
         textViewDate.setText(youtubeDataModel.getPublishedAt());
 
-        ImageViewAdd.setOnClickListener(v -> startActivity(new Intent(DetailsActivity.this, Pop.class)));
+
+
+        ImageViewAdd.setOnClickListener(
+                v -> {
+                    String videoId = youtubeDataModel.getVideo_id();
+                    Intent intent = new Intent(this, Pop.class);
+                    intent.putExtra("videoId", videoId);
+                    startActivity(intent);
+                }
+        );
 
         mList_videos = findViewById(R.id.mList_videos);
         new RequestYoutubeCommentAPI().execute();

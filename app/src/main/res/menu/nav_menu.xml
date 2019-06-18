@@ -3,13 +3,15 @@
     <item android:title="Girls">
         <menu>
             <item
-                android:id="@+id/boys_one_four_years_old"
-                android:title="2-4 years old" />
+                android:id="@+id/girls_one_four_years_old"
+                android:title="2-4 years old"
+                android:titleCondensed="2-4 years old" />
+
             <item
-                android:id="@+id/boys_four_seven_years_old"
+                android:id="@+id/girls_four_seven_years_old"
                 android:title="4-7 years old" />
             <item
-                android:id="@+id/boys_seven_ten_years_old"
+                android:id="@+id/girls_seven_ten_years_old"
                 android:title="7-10 years old" />
         </menu>
     </item>
@@ -17,13 +19,13 @@
     <item android:title="Boys">
         <menu>
             <item
-                android:id="@+id/girls_one_four_years_old"
-                android:title="1-4 years old" />
+                android:id="@+id/boys_one_four_years_old"
+                android:title="2-4 years old" />
             <item
-                android:id="@+id/girls_four_seven_years_old"
+                android:id="@+id/boys_four_seven_years_old"
                 android:title="4-7 years old" />
             <item
-                android:id="@+id/girls_seven_ten_years_old"
+                android:id="@+id/boys_seven_ten_years_old"
                 android:title="7-10 years old" />
         </menu>
     </item>

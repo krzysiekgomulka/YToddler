@@ -51,14 +51,16 @@
         android:background="@drawable/round_bg"
         android:text="@string/start" />
 
+
     <Button
         android:id="@+id/button_reset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/text_view_countdown"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="119dp"
         android:layout_marginTop="63dp"
-        android:layout_toEndOf="@+id/button_start_pause"
+        android:layout_marginLeft="70dp"
+        android:layout_toEndOf="@+id/button_set"
         android:background="@drawable/round_bg"
         android:text="@string/reset"
         android:visibility="invisible"

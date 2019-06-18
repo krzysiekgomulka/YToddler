@@ -1,9 +1,11 @@
 package com.abc.ytoddler;
 
 import android.content.Intent;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Patterns;
+import android.util.TimeUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -12,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 

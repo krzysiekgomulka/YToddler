@@ -34,7 +34,7 @@
     <string name="searchMenu">Search...</string>
     <string name="englishMenu">English</string>
     <string name="germanMenu">German</string>
-    <string name="polishMenu">Polish</string>
+    <string name="polishMenu">Polski</string>
     <string name="chineseMenu">Chinese</string>
 
     <string name="nav_header_title">0:00</string>
@@ -48,6 +48,7 @@
     <string name="channel">Channel</string>
     <string name="playlist">Playlist</string>
     <string name="live">Live</string>
+    <string name="title_activity_custom_playlist">CustomPlaylistActivity</string>
 
 
 </resources>
