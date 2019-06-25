@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">YToddler</string>
+    <string name="About">Über uns</string>
+    <string name="Already_have_an_account_Login">Hast du schon ein Konto? Anmeldung</string>
+    <string name="Don_t_have_account_Sign_Up">Hast du schon ein Konto? Anmeldung</string>
+    <string name="Download_This_Video">Lade dieses Video herunter</string>
+    <string name="ForgotPassword">Passwort vergessen?</string>
+    <string name="Languages">Sprachen</string>
+    <string name="Login">Anmeldung</string>
+    <string name="Logo_Description">Logo Beschreibung</string>
+    <string name="Logout">Ausloggen</string>
+    <string name="Minutes">Minuten</string>
+    <string name="PauseTimer">pausiert</string>
+    <string name="Set">einstellen</string>
+    <string name="Sign_up">Anmelden</string>
+    <string name="StartTimer">Start</string>
+    <string name="Timer">Timer</string>
+    <string name="Zeroes">00:00</string>
+    <string name="about">Diese Anwendung wurde von entwickelt und implementiert Krzysztof Gómułka als Diplomarbeitsprojekt. Die Anwendung ist wahrscheinlich eine der besten Methoden zur Bereitstellung sicherer YouTube-Inhalte für Kinder sowie gute Unterhaltung.</string>
+    <string name="channel">Kanal</string>
+    <string name="close">schließen</string>
+    <string name="email">email</string>
+    <string name="four_button">2-4 Jahre alt</string>
+    <string name="ten_button">7-10 Jahre alt</string>
+    <string name="start">start</string>
+    <string name="seven_button">4-7 Jahre alt</string>
+    <string name="searchMenu">Suche...</string>
+    <string name="reset">zurücksetzen</string>
+    <string name="playlist">Wiedergabeliste</string>
+    <string name="password">Passwort</string>
+    <string name="other_account">anderes Konto</string>
+    <string name="open">öffnen</string>
+    <string name="login_with_google">MIT GOOGLE ANMELDEN</string>
+    <string name="login_with_facebook">MIT FACEBOOK ANMELDEN</string>
+    <string name="login_condition">Um sich einzuloggen Konto auswählen</string>
+    <string name="live">Leben</string>
+</resources>

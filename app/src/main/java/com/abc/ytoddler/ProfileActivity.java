@@ -149,6 +149,21 @@ public class ProfileActivity extends AppCompatActivity
             Paper.book().write("language", "pl");
             updateView(Paper.book().read("language"));
         }
+        else if (item.getItemId() == R.id.german)
+        {
+            Paper.book().write("language", "de");
+            updateView(Paper.book().read("language"));
+        }
+        else if (item.getItemId() == R.id.chinese)
+        {
+            Paper.book().write("language", "zh");
+            updateView(Paper.book().read("language"));
+        }
+        else if (item.getItemId() == R.id.about)
+        {
+            finish();
+            startActivity(new Intent(this, AboutActivity.class));
+        }
         else if (mToggle.onOptionsItemSelected(item))
         {
             return true;

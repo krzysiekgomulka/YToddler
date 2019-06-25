@@ -2,7 +2,7 @@
     <string name="app_name">YToddler</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="email">email</string>
     <string name="password">password</string>
     <string name="Login">Login</string>
@@ -17,7 +17,7 @@
     <string name="Download_This_Video">Download This Video</string>
     <string name="Minutes">Minutes</string>
     <string name="Set">Set</string>
-    <string name="Zeroes">00:00</string>
+    <string name="Zeroes" translatable="false">00:00</string>
     <string name="start">start</string>
     <string name="reset">reset</string>
     <string name="Logo_Description">Logo Description</string>
@@ -32,23 +32,27 @@
     <string name="StartTimer">Start</string>
 
     <string name="searchMenu">Search...</string>
-    <string name="englishMenu">English</string>
-    <string name="germanMenu">German</string>
-    <string name="polishMenu">Polski</string>
-    <string name="chineseMenu">Chinese</string>
+    <string name="englishMenu" translatable="false">English</string>
+    <string name="germanMenu" translatable="false">Deutsch</string>
+    <string name="polishMenu" translatable="false">Polski</string>
+    <string name="chineseMenu" translatable="false">中文</string>
 
-    <string name="nav_header_title">0:00</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
+    <string name="nav_header_title" translatable="false">0:00</string>
+    <string name="nav_header_subtitle" translatable="false">android.studio@android.com</string>
+    <string name="nav_header_desc" translatable="false">Navigation header</string>
 
-    <string name="four_button">1-4 years old</string>
+    <string name="four_button">2-4 years old</string>
     <string name="seven_button">4-7 years old</string>
     <string name="ten_button">7-10 years old</string>
 
     <string name="channel">Channel</string>
     <string name="playlist">Playlist</string>
     <string name="live">Live</string>
-    <string name="title_activity_custom_playlist">CustomPlaylistActivity</string>
+    <string name="title_activity_custom_playlist" translatable="false">CustomPlaylistActivity</string>
 
+    <string name="about">This application has been designed and implemented by \nKrzysztof Gómułka \nas a diploma thesis project. The application is likely to be one of the best methods of providing safe YouTube content\nfor kids as well as good entertainment.</string>
+
+    <string name="other_account">Other account</string>
+    <string name="login_condition">"In order to log in \nchoose account"</string>
 
 </resources>

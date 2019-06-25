@@ -33,15 +33,15 @@
 
     <string name="searchMenu">Szukaj....</string>
     <string name="englishMenu">English</string>
-    <string name="germanMenu">German</string>
+    <string name="germanMenu">Deutsch</string>
     <string name="polishMenu">Polski</string>
-    <string name="chineseMenu">Chinese</string>
+    <string name="chineseMenu">中文</string>
 
     <string name="nav_header_title">0:00</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
 
-    <string name="four_button">1-4 lata</string>
+    <string name="four_button">2-4 lata</string>
     <string name="seven_button">4-7 lata</string>
     <string name="ten_button">7-10 lata</string>
 
@@ -50,4 +50,9 @@
     <string name="live">Na żywo</string>
 
     <string name="title_activity_custom_playlist">CustomPlaylistActivity</string>
+
+    <string name="about">Aplikacja została zaprojektowana i zaimplementowana przez \nKrzysztofa Gómułkę \nas w ramach projektu dyplomowego. Aplikacja ma szansę być jedną z tych, które stanowią metodę na dostarczenie bezpiecznych materiałów video\n dla dzieci a także wspaniałej rozrywki.</string>
+
+    <string name="other_account">Inne konto</string>
+    <string name="login_condition">Żeby się zalogować \nwybierz konto</string>
 </resources>

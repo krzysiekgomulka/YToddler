@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         findViewById(R.id.textViewSignup).setOnClickListener(this);
         findViewById(R.id.buttonLogin).setOnClickListener(this);
+        findViewById(R.id.login).setOnClickListener(this);
 
         // [START initialize_auth]
         // Initialize Firebase Auth
@@ -213,6 +214,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.buttonLogin:
                 userLogin();
+                break;
+
+            case R.id.login:
+                finish();
+                startActivity(new Intent(this, GoogleActivity.class));
                 break;
         }
     }

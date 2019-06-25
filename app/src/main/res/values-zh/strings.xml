@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">YToddler</string>
+    <string name="About">关于</string>
+    <string name="Already_have_an_account_Login">已经有帐户？ 登录</string>
+    <string name="Don_t_have_account_Sign_Up">没有账号？ 注册</string>
+    <string name="Download_This_Video">下载此视频</string>
+    <string name="ForgotPassword">忘记密码？</string>
+    <string name="Languages">语言</string>
+    <string name="Login">登录</string>
+    <string name="Logo_Description">徽标说明</string>
+    <string name="Logout">登出</string>
+    <string name="Minutes">分钟</string>
+    <string name="PauseTimer">暂停</string>
+    <string name="Set">组</string>
+    <string name="Sign_up">注册</string>
+    <string name="StartTimer">开始</string>
+    <string name="Timer">计时器</string>
+    <string name="about">此应用程序的设计和实现 KrzysztofGómułka 作为毕业论文项目。 该应用程序可能是提供安全YouTube内容的最佳方法之一 适合儿童和娱乐。</string>
+    <string name="channel">渠道</string>
+    <string name="close">关</string>
+    <string name="email">电子邮件</string>
+    <string name="four_button">2-4岁</string>
+    <string name="seven_button">4-7岁</string>
+    <string name="ten_button">7-10岁</string>
+    <string name="start">开始</string>
+    <string name="searchMenu">搜索</string>
+    <string name="reset">重启</string>
+    <string name="playlist">播放列表</string>
+    <string name="password">密码</string>
+    <string name="other_account">其他帐户</string>
+    <string name="open">打开</string>
+    <string name="login_with_google">"使用GOOGLE登录 "</string>
+    <string name="login_with_facebook">"使用FACEBOOK登录 "</string>
+    <string name="live">生活</string>
+    <string name="login_condition">为了登录 选择帐户</string>
+</resources>

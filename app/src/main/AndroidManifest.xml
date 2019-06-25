@@ -11,6 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".GoogleActivity"></activity>
+        <activity android:name=".AboutActivity" />
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop">
@@ -30,16 +32,14 @@
         <activity
             android:name=".TimerActivity"
             android:parentActivityName=".ProfileActivity" />
-        <activity android:name=".FourGirlActivity"/>
-        <activity android:name=".SevenGirlActivity"/>
-        <activity android:name=".TenGirlActivity"/>
-        <activity android:name=".FourBoyActivity"/>
-        <activity android:name=".SevenBoyActivity"/>
-        <activity android:name=".TenBoyActivity"/>
+        <activity android:name=".FourGirlActivity" />
+        <activity android:name=".SevenGirlActivity" />
+        <activity android:name=".TenGirlActivity" />
+        <activity android:name=".FourBoyActivity" />
+        <activity android:name=".SevenBoyActivity" />
+        <activity android:name=".TenBoyActivity" />
+
         <service android:name=".BroadcastService" />
-
-
-
     </application>
 
 </manifest>
